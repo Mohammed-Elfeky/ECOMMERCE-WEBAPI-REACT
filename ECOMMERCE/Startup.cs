@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECOMMERCE.models;
+using Microsoft.EntityFrameworkCore;
+using ECOMMERCE.repos;
 
 namespace ECOMMERCE
 {
@@ -25,12 +28,16 @@ namespace ECOMMERCE
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<context>(optios => {
+                optios.UseSqlServer("Data Source=.;Initial Catalog=webApiEcommerce;Integrated Security=True");
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECOMMERCE", Version = "v1" });
             });
+            services.AddScoped<IcategoryRepo, categoryRepo>();
+            services.AddScoped<IproductRepo, productRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
