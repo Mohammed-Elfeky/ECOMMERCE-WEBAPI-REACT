@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using ECOMMERCE.models;
 using Microsoft.EntityFrameworkCore;
 using ECOMMERCE.repos;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ECOMMERCE
 {
@@ -38,6 +40,14 @@ namespace ECOMMERCE
             });
             services.AddScoped<IcategoryRepo, categoryRepo>();
             services.AddScoped<IproductRepo, productRepo>();
+            services.AddScoped<IHelpersRepo, HelpersRepo>();
+
+            services.AddCors(corsOptions => {
+                corsOptions.AddPolicy("policy", corsPolicyBuilder =>
+                {
+                    corsPolicyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +59,14 @@ namespace ECOMMERCE
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECOMMERCE v1"));
             }
-
+            app.UseCors("policy");
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "images")
+             ),
+                RequestPath = "/images"
+            });
             app.UseRouting();
 
             app.UseAuthorization();
