@@ -32,7 +32,6 @@ namespace ECOMMERCE.repos
             {
                 oldCategory.Name = category.Name;
                 oldCategory.Description = category.Description;
-                oldCategory.img = category.img;
                 context.SaveChanges();
                 return oldCategory;
             }

@@ -39,7 +39,7 @@ namespace ECOMMERCE.Controllers
                 Category category = icategoryRepo.FindById(id);
                 if (category == null)
                 {
-                    return BadRequest("the id doesn't exist");
+                    return Problem("the id doesn't exist");
                 }
                 return Ok(category);
             }
@@ -70,7 +70,7 @@ namespace ECOMMERCE.Controllers
 
             try
             {
-                if (icategoryRepo.FindById(id) == null) return BadRequest("the id doesn't exist");
+                if (icategoryRepo.FindById(id) == null) return Problem("the id doesn't exist");
                 return Ok(icategoryRepo.Edit(id, category));
             }
             catch

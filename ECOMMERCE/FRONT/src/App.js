@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import CatForm from './COMPONENTS/catForm';
+import CatFormEdit from './COMPONENTS/cat/catFormEdit';
 function App() {
   return (
     <div className="App">
-      <CatForm/>
+      <CatFormEdit/>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {useDispatch,useSelector} from "react-redux"
-import {addCategory} from '../REDUX/CAT/slice'
+import {addCategory} from '../../REDUX/CAT/slice'
 import Joi from "joi";
-import {nameSchema,descSchema} from '../validation/cateogry'
-const CatForm = () => {
+import {nameSchema,descSchema} from '../../validation/cateogry'
+const CatFormAdd = () => {
     
     const dispatch=useDispatch()
     const err=useSelector(({catState:{err}})=>err)
@@ -82,4 +82,4 @@ const CatForm = () => {
     );
 }
 
-export default CatForm;
+export default CatFormAdd;
